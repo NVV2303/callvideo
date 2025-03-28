@@ -18,7 +18,7 @@ function App() {
         {/* - [KHU VỰC ĐỂ MÀN HÌNH NỀN - END] --------------------------------*/}
 
         {/* - [GIAO DIỆN CHÍNH] ----------------------------------------------*/}
-        <div className="container w-full h-full mx-auto p-4 absolute inset-0"> 
+        <div className="container w-full h-full mx-auto p-4 absolute inset-0 justify-items-center" > 
           <Title />
           
           {/* Danh sách Room Chat */}

@@ -74,7 +74,7 @@ const RoomList = () => {
                 <div>
                     <Login/>
                     <section className="flex md:flex-row md:justify-between justify-between items-center flex-col">
-                        <h2 className="text-yellow-300 font-bold text-3xl text-shadow">Room chat</h2>
+                        <h2 className="text-white  font-bold text-3xl text-shadow bg-blue-950  rounded-lg p-2">Room chat</h2>
                         <div className="flex items-center space-x-3">
                             <input
                                 type="text"
@@ -92,9 +92,9 @@ const RoomList = () => {
                         </div>
                     </section>
 
-                    {error && <p className="text-red-500 mb-4">{error}</p>}
+                    {error && <p className="text-blue-400 mb-4">{error}</p>}
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6 bg-cyan-950 rounded-lg p-3">
                         {rooms.length > 0 ? (
                             rooms.map((room) => (
                                 <Link to={`rooms/${room.name}`} key={room.id}>
@@ -107,20 +107,20 @@ const RoomList = () => {
                     </div>
                 </div>
             ) : (
-                <div className="flex flex-col items-center justify-center justify-items-center">
+                <div className="p-2 flex flex-col items-center justify-center justify-items-center w-max bg-cyan-300 rounded-lg">
                     <h2 className="text-2xl font-bold mb-4 text-white">Please Login to Continue</h2>
                     <button
                         onClick={handleGoogleLogin}
                         className="bg-blue-950 text-white px-6 py-2 rounded-lg hover:bg-blue-800 transition-colors"
                     >
-                        Login with Google
+                        Login with Google...
                     </button>
 
                     <button
                         onClick={handleGitHubLogin}
                         className="bg-gray-800 text-white px-6 py-2 rounded-lg hover:bg-gray-700 transition-colors mt-3"
                     >
-                        Login with GitHub
+                        Login with GitHub...
                     </button>
                 </div>
             )}

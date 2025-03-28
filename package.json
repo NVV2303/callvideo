@@ -12,6 +12,10 @@
   "dependencies": {
     "@daily-co/daily-js": "^0.76.0",
     "@daily-co/daily-react": "^0.22.0",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/icons-material": "^7.0.0",
+    "@mui/material": "^7.0.0",
     "@tailwindcss/vite": "^4.0.15",
     "axios": "^1.8.4",
     "firebase": "^11.5.0",
