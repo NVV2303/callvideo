@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { auth, googleProvider } from "../context/FirebaseConfig"; 
+import { auth, googleProvider, githubProvider } from "../context/FirebaseConfig";
 import { signInWithPopup, signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
@@ -7,7 +7,7 @@ const Login = () => {
   const [user, setUser] = useState(null);
   const [isPanelOpen, setIsPanelOpen] = useState(false);
   const navigate = useNavigate();
-    
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((currentUser) => {
       setUser(currentUser);
@@ -18,9 +18,9 @@ const Login = () => {
     return () => unsubscribe();
   }, [navigate]);
 
-  const handleGoogleLogin = async () => {
+  const handleLogin = async (provider) => {
     try {
-      const result = await signInWithPopup(auth, googleProvider);
+      const result = await signInWithPopup(auth, provider);
       setUser(result.user);
       setIsPanelOpen(false);
       navigate("/");
@@ -68,7 +68,7 @@ const Login = () => {
           <h2 className="text-xl font-bold mb-4 text-blue-950 text-center">
             Welcome to Video Call App
           </h2>
-          
+
           {user ? (
             <div className="text-center">
               <img
@@ -88,9 +88,11 @@ const Login = () => {
           ) : (
             <div className="text-center">
               <p className="mb-4 text-gray-600">Please login to continue</p>
+              
+              {/* Google Login */}
               <button
-                onClick={handleGoogleLogin}
-                className="bg-blue-950 text-white px-4 py-2 rounded-lg hover:bg-blue-800 transition-colors flex items-center justify-center gap-2 w-full mx-auto"
+                onClick={() => handleLogin(googleProvider)}
+                className="bg-blue-950 text-white px-4 py-2 rounded-lg hover:bg-blue-800 transition-colors flex items-center justify-center gap-2 w-full mx-auto mb-2"
               >
                 <svg className="w-5 h-5" viewBox="0 0 24 24">
                   <path
@@ -99,6 +101,20 @@ const Login = () => {
                   />
                 </svg>
                 Login with Google
+              </button>
+
+              {/* GitHub Login */}
+              <button
+                onClick={() => handleLogin(githubProvider)}
+                className="bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors flex items-center justify-center gap-2 w-full mx-auto"
+              >
+                <svg className="w-5 h-5" viewBox="0 0 24 24">
+                  <path
+                    fill="currentColor"
+                    d="M12 .297c-6.63 0-12 5.373-12 12 0 5.302 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.34.727-4.042-1.61-4.042-1.61-.546-1.387-1.332-1.757-1.332-1.757-1.086-.744.084-.729.084-.729 1.205.086 1.84 1.235 1.84 1.235 1.067 1.833 2.805 1.303 3.49.996.108-.773.417-1.303.76-1.603-2.665-.303-5.466-1.333-5.466-5.932 0-1.31.47-2.38 1.235-3.22-.123-.303-.535-1.523.117-3.176 0 0 1.008-.322 3.3 1.23.96-.267 1.98-.4 3-.405 1.02.005 2.04.138 3 .405 2.292-1.552 3.3-1.23 3.3-1.23.652 1.653.24 2.873.117 3.176.765.84 1.235 1.91 1.235 3.22 0 4.608-2.805 5.625-5.475 5.922.428.368.81 1.096.81 2.215 0 1.6-.015 2.887-.015 3.282 0 .322.217.695.825.578C20.565 22.092 24 17.592 24 12c0-6.627-5.373-12-12-12"
+                  />
+                </svg>
+                Login with GitHub
               </button>
             </div>
           )}

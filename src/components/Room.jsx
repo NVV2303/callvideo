@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { fetchRooms, createRoom } from "../api/DailyVideoCallApi";
 import Card from "./Card";
 import { Link } from "react-router-dom";
-import { getAuth, onAuthStateChanged, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, onAuthStateChanged, signInWithPopup, GoogleAuthProvider , GithubAuthProvider } from "firebase/auth";
 import Login from "../pages/Login";
 
 const RoomList = () => {
@@ -10,9 +10,10 @@ const RoomList = () => {
     const [roomName, setRoomName] = useState("");
     const [error, setError] = useState("");
     const [user, setUser] = useState(null);
-
+    
     const auth = getAuth();
     const googleProvider = new GoogleAuthProvider();
+    const githubProvider = new GithubAuthProvider
 
     // Kiểm tra trạng thái đăng nhập
     useEffect(() => {
@@ -39,6 +40,14 @@ const RoomList = () => {
             await signInWithPopup(auth, googleProvider);
         } catch (error) {
             console.error("Login error:", error.message);
+        }
+    };
+
+    const handleGitHubLogin = async () => {
+        try {
+            await signInWithPopup(auth, githubProvider);
+        } catch (error) {
+            console.error("GitHub Login Error:", error.message);
         }
     };
 
@@ -105,6 +114,13 @@ const RoomList = () => {
                         className="bg-blue-950 text-white px-6 py-2 rounded-lg hover:bg-blue-800 transition-colors"
                     >
                         Login with Google
+                    </button>
+
+                    <button
+                        onClick={handleGitHubLogin}
+                        className="bg-gray-800 text-white px-6 py-2 rounded-lg hover:bg-gray-700 transition-colors mt-3"
+                    >
+                        Login with GitHub
                     </button>
                 </div>
             )}
